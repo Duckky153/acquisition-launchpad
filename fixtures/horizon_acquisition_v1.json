@@ -1,0 +1,103 @@
+{
+  "schema_version": "1.0",
+  "external_key": "horizon-2026-acquisition",
+  "package_version": 1,
+  "name": "Horizon Group synthetic acquisition package",
+  "as_of_date": "2026-07-31",
+  "reporting_currency": "USD",
+  "entities": [
+    {
+      "external_id": "HORIZON",
+      "parent_external_id": null,
+      "name": "Horizon Group",
+      "legal_name": "Horizon Group Holdings, Inc. (Synthetic)",
+      "currency": "USD",
+      "source_system": "Synthetic Legacy ERP"
+    },
+    {
+      "external_id": "NORTHSTAR",
+      "parent_external_id": "HORIZON",
+      "name": "Northstar Apartments",
+      "legal_name": "Northstar Apartments LLC (Synthetic)",
+      "currency": "USD",
+      "source_system": "Synthetic QuickBooks Export"
+    },
+    {
+      "external_id": "LAKEVIEW",
+      "parent_external_id": "HORIZON",
+      "name": "Lakeview Services",
+      "legal_name": "Lakeview Property Services LLC (Synthetic)",
+      "currency": "USD",
+      "source_system": "Synthetic Sage Export"
+    }
+  ],
+  "canonical_accounts": [
+    {"code": "1000", "name": "Cash", "account_type": "ASSET", "normal_balance": "DEBIT"},
+    {"code": "1100", "name": "Accounts Receivable", "account_type": "ASSET", "normal_balance": "DEBIT"},
+    {"code": "2000", "name": "Accounts Payable", "account_type": "LIABILITY", "normal_balance": "CREDIT"},
+    {"code": "3000", "name": "Retained Earnings", "account_type": "EQUITY", "normal_balance": "CREDIT"},
+    {"code": "4000", "name": "Operating Revenue", "account_type": "INCOME", "normal_balance": "CREDIT"},
+    {"code": "5000", "name": "Operating Expense", "account_type": "EXPENSE", "normal_balance": "DEBIT"}
+  ],
+  "source_accounts": [
+    {"entity_external_id": "HORIZON", "code": "HZ-101", "name": "Operating Cash", "account_type": "ASSET"},
+    {"entity_external_id": "HORIZON", "code": "HZ-115", "name": "Trade Receivables", "account_type": "ASSET"},
+    {"entity_external_id": "HORIZON", "code": "HZ-210", "name": "Vendor Payables", "account_type": "LIABILITY"},
+    {"entity_external_id": "HORIZON", "code": "HZ-330", "name": "Accumulated Earnings", "account_type": "EQUITY"},
+    {"entity_external_id": "HORIZON", "code": "HZ-410", "name": "Management Revenue", "account_type": "INCOME"},
+    {"entity_external_id": "HORIZON", "code": "HZ-590", "name": "General Operations", "account_type": "EXPENSE"},
+    {"entity_external_id": "NORTHSTAR", "code": "NS-100", "name": "Bank - Main", "account_type": "ASSET"},
+    {"entity_external_id": "NORTHSTAR", "code": "NS-120", "name": "Tenant Receivables", "account_type": "ASSET"},
+    {"entity_external_id": "NORTHSTAR", "code": "NS-205", "name": "Bills Payable", "account_type": "LIABILITY"},
+    {"entity_external_id": "NORTHSTAR", "code": "NS-320", "name": "Members Equity", "account_type": "EQUITY"},
+    {"entity_external_id": "NORTHSTAR", "code": "NS-401", "name": "Rental Income", "account_type": "INCOME"},
+    {"entity_external_id": "NORTHSTAR", "code": "NS-510", "name": "Property Operations", "account_type": "EXPENSE"},
+    {"entity_external_id": "LAKEVIEW", "code": "LV-10", "name": "Checking", "account_type": "ASSET"},
+    {"entity_external_id": "LAKEVIEW", "code": "LV-12", "name": "Customer A/R", "account_type": "ASSET"},
+    {"entity_external_id": "LAKEVIEW", "code": "LV-20", "name": "Trade A/P", "account_type": "LIABILITY"},
+    {"entity_external_id": "LAKEVIEW", "code": "LV-30", "name": "Owner Capital", "account_type": "EQUITY"},
+    {"entity_external_id": "LAKEVIEW", "code": "LV-40", "name": "Service Sales", "account_type": "INCOME"},
+    {"entity_external_id": "LAKEVIEW", "code": "LV-50", "name": "Service Delivery", "account_type": "EXPENSE"}
+  ],
+  "trial_balance": [
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-101", "debit_cents": 250000000, "credit_cents": 0},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-115", "debit_cents": 50000000, "credit_cents": 0},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-210", "debit_cents": 0, "credit_cents": 40000000},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-330", "debit_cents": 0, "credit_cents": 200000000},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-410", "debit_cents": 0, "credit_cents": 80000000},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-590", "debit_cents": 20000000, "credit_cents": 0},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-100", "debit_cents": 90000000, "credit_cents": 0},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-120", "debit_cents": 20000000, "credit_cents": 0},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-205", "debit_cents": 0, "credit_cents": 25000000},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-320", "debit_cents": 0, "credit_cents": 65000000},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-401", "debit_cents": 0, "credit_cents": 30000000},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-510", "debit_cents": 10000000, "credit_cents": 0},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-10", "debit_cents": 45000000, "credit_cents": 0},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-12", "debit_cents": 10000000, "credit_cents": 0},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-20", "debit_cents": 0, "credit_cents": 15000000},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-30", "debit_cents": 0, "credit_cents": 30000000},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-40", "debit_cents": 0, "credit_cents": 15000000},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-50", "debit_cents": 5000000, "credit_cents": 0}
+  ],
+  "mapping_suggestions": [
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-101", "canonical_account_code": "1000", "confidence": 0.99, "rationale": "Name and asset classification match cash."},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-115", "canonical_account_code": "1100", "confidence": 0.98, "rationale": "Trade receivables map to accounts receivable."},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-210", "canonical_account_code": "2000", "confidence": 0.98, "rationale": "Vendor payables map to accounts payable."},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-330", "canonical_account_code": "3000", "confidence": 0.96, "rationale": "Accumulated earnings map to retained earnings."},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-410", "canonical_account_code": "4000", "confidence": 0.94, "rationale": "Management revenue is operating revenue."},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-410", "canonical_account_code": "3000", "confidence": 0.12, "rationale": "Low-confidence lexical overlap only; retained for human comparison."},
+    {"entity_external_id": "HORIZON", "source_account_code": "HZ-590", "canonical_account_code": "5000", "confidence": 0.95, "rationale": "General operations is an operating expense."},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-100", "canonical_account_code": "1000", "confidence": 0.99, "rationale": "Bank account maps to cash."},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-120", "canonical_account_code": "1100", "confidence": 0.97, "rationale": "Tenant receivables map to accounts receivable."},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-205", "canonical_account_code": "2000", "confidence": 0.98, "rationale": "Bills payable map to accounts payable."},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-320", "canonical_account_code": "3000", "confidence": 0.91, "rationale": "Members equity maps to the canonical equity account for this demonstration."},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-401", "canonical_account_code": "4000", "confidence": 0.99, "rationale": "Rental income maps to operating revenue."},
+    {"entity_external_id": "NORTHSTAR", "source_account_code": "NS-510", "canonical_account_code": "5000", "confidence": 0.95, "rationale": "Property operations map to operating expense."},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-10", "canonical_account_code": "1000", "confidence": 0.99, "rationale": "Checking account maps to cash."},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-12", "canonical_account_code": "1100", "confidence": 0.98, "rationale": "Customer A/R maps to accounts receivable."},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-20", "canonical_account_code": "2000", "confidence": 0.98, "rationale": "Trade A/P maps to accounts payable."},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-30", "canonical_account_code": "3000", "confidence": 0.91, "rationale": "Owner capital maps to the canonical equity account for this demonstration."},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-40", "canonical_account_code": "4000", "confidence": 0.97, "rationale": "Service sales map to operating revenue."},
+    {"entity_external_id": "LAKEVIEW", "source_account_code": "LV-50", "canonical_account_code": "5000", "confidence": 0.96, "rationale": "Service delivery maps to operating expense."}
+  ]
+}

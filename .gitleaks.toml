@@ -1,0 +1,26 @@
+title = "acquisition-launchpad"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated dependency, cache, coverage, and browser artifacts"
+paths = [
+  '''^\.venv/''',
+  '''^\.mypy_cache/''',
+  '''^\.pytest_cache/''',
+  '''^\.ruff_cache/''',
+  '''^frontend/coverage/''',
+  '''^frontend/dist/''',
+  '''^frontend/node_modules/''',
+  '''^frontend/playwright-report/''',
+  '''^frontend/test-results/''',
+]
+
+[[allowlists]]
+description = "Exact public identifiers for the synthetic Horizon demo"
+regexTarget = "secret"
+regexes = [
+  '''^horizon-2026-acquisition$''',
+  '''^synthetic-acquisition-v1$''',
+]

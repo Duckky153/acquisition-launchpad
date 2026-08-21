@@ -1,0 +1,72 @@
+name: acquisition-launchpad
+
+x-api-service: &api-service
+  image: acquisition-launchpad-api:local
+  build:
+    context: .
+  environment:
+    LAUNCHPAD_DATABASE_URL: postgresql+psycopg://launchpad:launchpad@postgres:5432/launchpad
+    LAUNCHPAD_ENVIRONMENT: development
+
+services:
+  migrate:
+    <<: *api-service
+    command: ["/app/.venv/bin/alembic", "upgrade", "head"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    <<: *api-service
+    ports:
+      - "127.0.0.1:8011:8000"
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+
+  seed:
+    <<: *api-service
+    command:
+      - "/app/.venv/bin/python"
+      - "/app/scripts/seed_demo.py"
+      - "--api-base"
+      - "http://api:8000"
+      - "--fixture"
+      - "/app/fixtures/horizon_acquisition_v1.json"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: "no"
+
+  frontend:
+    image: acquisition-launchpad-frontend:local
+    build:
+      context: ./frontend
+      args:
+        VITE_API_BASE_URL: /api
+    ports:
+      - "127.0.0.1:3011:8080"
+    depends_on:
+      seed:
+        condition: service_completed_successfully
+
+  postgres:
+    image: postgres:17-alpine@sha256:18cfe3ef5e6815560c98237d6216d1e5119702fb0f3894c8785dd58b8bbe5d73
+    environment:
+      POSTGRES_DB: launchpad
+      POSTGRES_USER: launchpad
+      POSTGRES_PASSWORD: launchpad
+    ports:
+      - "127.0.0.1:5441:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U launchpad -d launchpad"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    volumes:
+      - launchpad-postgres:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  launchpad-postgres:
