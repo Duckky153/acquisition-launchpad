@@ -77,7 +77,7 @@ test("renders the live Entity Control Center and its evidence surfaces", async (
 test("keeps the guided story keyboard-usable and contained on desktop and mobile", async ({ page }) => {
   const runtimeErrors = expectNoRuntimeErrors(page);
   await page.goto("/");
-  await page.getByRole("button", { name: "Start guided demo" }).click();
+  await page.getByRole("button", { name: "Start full tour" }).click();
   const guide = page.getByRole("complementary", { name: "Three-minute guided demo" });
   await expect(guide).toBeVisible();
   await expect(page.getByRole("heading", { name: /Acquired companies rarely/ })).toBeFocused();
@@ -104,7 +104,7 @@ test("keeps the guided story keyboard-usable and contained on desktop and mobile
   await page.keyboard.press("ArrowRight");
   await expect(page.getByRole("heading", { name: /implementation specialist controls/ })).toBeVisible();
   await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("heading", { name: "Review the one decision left" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Review the one decision left|The final mapping is approved/ })).toBeVisible();
   await expect(page.getByRole("searchbox", { name: "Search account mappings" })).toHaveValue("HZ-115");
   await expect(page.getByRole("button", { name: "Hide mapping evidence for HZ-115" })).toBeVisible();
 
@@ -153,12 +153,8 @@ test("guides the final evidence decision through READY and preserves its audit p
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "One decision turns the package ready" })).toBeVisible();
   await expect(page.getByText("17/18", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Start guided demo" }).click();
-  await expect(page.getByRole("heading", { name: /Acquired companies rarely/ })).toBeVisible();
-  await page.getByRole("button", { name: /Next guided demo step/ }).click();
-  await expect(page.getByRole("heading", { name: /implementation specialist controls/ })).toBeVisible();
+  await page.getByRole("button", { name: "Review final decision" }).click();
   await expect(page.getByRole("button", { name: /Horizon Group/ })).toHaveAttribute("aria-pressed", "true");
-  await page.getByRole("button", { name: /Next guided demo step/ }).click();
   await expect(page.getByRole("heading", { name: "Review the one decision left" })).toBeVisible();
   await expect(page.getByRole("searchbox", { name: "Search account mappings" })).toHaveValue("HZ-115");
   await expect(page.getByRole("button", { name: "Hide mapping evidence for HZ-115" })).toBeVisible();

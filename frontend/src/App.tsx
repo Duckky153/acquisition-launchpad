@@ -39,6 +39,7 @@ export default function App(): React.ReactElement {
   const [error, setError] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [showDemo, setShowDemo] = useState(false);
+  const [demoStartAt, setDemoStartAt] = useState<"overview" | "mapping">("overview");
   const [guidedFocus, setGuidedFocus] = useState<{ sourceCode: string; requestId: number } | null>(null);
 
   const loadPackages = useCallback(async (): Promise<void> => {
@@ -101,12 +102,21 @@ export default function App(): React.ReactElement {
   const openBlockerCount = workspace?.blockers.filter((blocker) => blocker.state === "OPEN").length ?? 0;
   const isReady = workspace?.readiness.status === "DATA_PREPARATION_READY";
 
+  const openDemo = (startAt: "overview" | "mapping"): void => {
+    setDemoStartAt(startAt);
+    setShowDemo(true);
+  };
+
   const navigateDemo = useCallback((anchor: DemoAnchor, requestId: number): void => {
     if (anchor === "entities" && workspace) {
       const horizon = workspace.package.entities.find((entity) => entity.external_id === "HORIZON");
       if (horizon) setSelectedEntityId(horizon.id);
     }
     if (anchor === "mapping") {
+      if (workspace) {
+        const horizon = workspace.package.entities.find((entity) => entity.external_id === "HORIZON");
+        if (horizon) setSelectedEntityId(horizon.id);
+      }
       setGuidedFocus({ sourceCode: "HZ-115", requestId });
     } else {
       setGuidedFocus(null);
@@ -259,7 +269,7 @@ export default function App(): React.ReactElement {
             <label className="package-select"><span>Acquisition package</span><select aria-label="Acquisition package" onChange={(event) => setSelectedPackageId(event.target.value)} value={selectedPackageId ?? ""}>{packages.map((item) => <option key={item.id} value={item.id}>{item.name} · v{item.package_version}</option>)}</select></label>
           ) : null}
           <span className="synthetic-badge"><ShieldIcon /> Synthetic data</span>
-          <button className="button button--tour" onClick={() => setShowDemo(true)} type="button">3-minute demo</button>
+          <button className="button button--tour" onClick={() => openDemo("overview")} type="button">3-minute demo</button>
           <button aria-label="Refresh workspace" className="icon-button header-refresh" disabled={loadingWorkspace || busy || !selectedPackageId} onClick={() => void refresh()} type="button"><RefreshIcon /></button>
         </div>
       </header>
@@ -277,7 +287,13 @@ export default function App(): React.ReactElement {
             <div className="context-bar__readiness"><StatusPill value={workspace.readiness.status} /><small>Evaluated {formatTimestamp(workspace.readiness.computed_at)}</small></div>
             <button className="button button--secondary" disabled={busy || loadingWorkspace} onClick={() => void recompute()} type="button"><RefreshIcon /> Recompute controls</button>
           </section>
-          <DemoMission approvedCount={approvedCount} isReady={isReady} onStart={() => setShowDemo(true)} totalCount={workspace.sourceAccounts.length} />
+          <DemoMission
+            approvedCount={approvedCount}
+            isReady={isReady}
+            onReviewDecision={() => openDemo("mapping")}
+            onStartTour={() => openDemo("overview")}
+            totalCount={workspace.sourceAccounts.length}
+          />
           <div className={`workspace-grid${loadingWorkspace ? " is-refreshing" : ""}`}>
             <EntityRail onSelectEntity={(entityId) => { setSelectedEntityId(entityId); setSelectedSourceIds(new Set()); }} packageDetail={workspace.package} readiness={workspace.readiness.entities} selectedEntityId={selectedEntityId} sourceAccounts={workspace.sourceAccounts} />
             <main className="control-main">
@@ -298,7 +314,7 @@ export default function App(): React.ReactElement {
       {decision ? <DecisionDialog busy={busy} mappings={decision.mappings} mode={decision.mode} onClose={() => setDecision(null)} onSubmit={submitDecision} /> : null}
       {resolvingBlocker ? <ResolveBlockerDialog blocker={resolvingBlocker} busy={busy} onClose={() => setResolvingBlocker(null)} onSubmit={resolveBlocker} /> : null}
       {showAudit && workspace ? <AuditDialog events={workspace.auditEvents} onClose={() => setShowAudit(false)} verification={workspace.auditVerification} /> : null}
-      {workspace ? <GuidedDemo approvedCount={approvedCount} isReady={isReady} onClose={closeDemo} onNavigate={navigateDemo} onOpenAudit={() => setShowAudit(true)} open={showDemo} openBlockerCount={openBlockerCount} totalCount={workspace.sourceAccounts.length} /> : null}
+      {workspace ? <GuidedDemo approvedCount={approvedCount} isReady={isReady} key={`${demoStartAt}-${showDemo ? "open" : "closed"}`} onClose={closeDemo} onNavigate={navigateDemo} onOpenAudit={() => setShowAudit(true)} open={showDemo} openBlockerCount={openBlockerCount} startAt={demoStartAt} totalCount={workspace.sourceAccounts.length} /> : null}
       <footer className="app-footer"><span>Acquisition Launchpad · Phase 1 control evidence</span><span>API: {launchpadApi.apiBase}</span></footer>
     </div>
   );

@@ -7,17 +7,21 @@ interface DemoMissionProps {
   approvedCount: number;
   totalCount: number;
   isReady: boolean;
-  onStart: () => void;
+  onReviewDecision: () => void;
+  onStartTour: () => void;
 }
 
-export function DemoMission({ approvedCount, totalCount, isReady, onStart }: DemoMissionProps): React.ReactElement {
+export function DemoMission({ approvedCount, totalCount, isReady, onReviewDecision, onStartTour }: DemoMissionProps): React.ReactElement {
   return (
     <section className={`demo-mission${isReady ? " is-complete" : ""}`} data-demo-anchor="overview" aria-labelledby="demo-mission-heading">
       <div className="demo-mission__lead">
         <p className="eyebrow">Three-minute recruiter demo</p>
         <h2 id="demo-mission-heading">{isReady ? "The acquisition package is ready" : "One decision turns the package ready"}</h2>
         <p>{isReady ? "The final human mapping is approved, the blocker is cleared, and every launch step is complete." : "Seventeen synthetic mapping decisions are already recorded. Review one final account to see evidence, controls, readiness, sequence, and audit history change together."}</p>
-        <button className="button button--demo" onClick={onStart} type="button">{isReady ? "Replay guided story" : "Start guided demo"}<ChevronIcon /></button>
+        <div className="demo-mission__actions">
+          <button className="button button--demo" onClick={onReviewDecision} type="button">{isReady ? "Inspect final decision" : "Review final decision"}<ChevronIcon /></button>
+          <button className="button button--demo-secondary" onClick={onStartTour} type="button">Start full tour</button>
+        </div>
       </div>
       <dl className="demo-mission__story">
         <div><dt>Problem</dt><dd>Three acquired companies call the same accounts by different names.</dd></div>
@@ -42,6 +46,7 @@ interface GuidedDemoProps {
   onClose: () => void;
   onNavigate: (anchor: DemoAnchor, requestId: number) => void;
   onOpenAudit: () => void;
+  startAt: "overview" | "mapping";
 }
 
 interface DemoStep {
@@ -108,8 +113,10 @@ export function GuidedDemo({
   onClose,
   onNavigate,
   onOpenAudit,
+  startAt,
 }: GuidedDemoProps): React.ReactElement | null {
-  const [stepIndex, setStepIndex] = useState(0);
+  const initialStepIndex = startAt === "mapping" ? 2 : 0;
+  const [stepIndex, setStepIndex] = useState(initialStepIndex);
   const requestId = useRef(0);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
@@ -119,13 +126,13 @@ export function GuidedDemo({
   useEffect(() => {
     if (!open) return;
     returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    setStepIndex(0);
+    setStepIndex(initialStepIndex);
     const focusTimeout = window.setTimeout(() => headingRef.current?.focus(), 0);
     return () => {
       window.clearTimeout(focusTimeout);
       returnFocusRef.current?.focus();
     };
-  }, [open]);
+  }, [initialStepIndex, open]);
 
   useEffect(() => {
     if (!open) return;

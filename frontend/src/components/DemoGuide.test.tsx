@@ -7,16 +7,19 @@ import { DemoMission, GuidedDemo } from "./DemoGuide";
 describe("DemoMission", () => {
   it("explains the problem, user, outcome, and one-decision-left state", async () => {
     const user = userEvent.setup();
-    const onStart = vi.fn();
-    render(<DemoMission approvedCount={17} isReady={false} onStart={onStart} totalCount={18} />);
+    const onReviewDecision = vi.fn();
+    const onStartTour = vi.fn();
+    render(<DemoMission approvedCount={17} isReady={false} onReviewDecision={onReviewDecision} onStartTour={onStartTour} totalCount={18} />);
 
     expect(screen.getByText("Problem")).toBeInTheDocument();
     expect(screen.getByText("User")).toBeInTheDocument();
     expect(screen.getByText("Outcome")).toBeInTheDocument();
     expect(screen.getByText("17/18")).toBeInTheDocument();
     expect(screen.getByText(/HZ-115/)).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: /Start guided demo/ }));
-    expect(onStart).toHaveBeenCalledOnce();
+    await user.click(screen.getByRole("button", { name: /Review final decision/ }));
+    expect(onReviewDecision).toHaveBeenCalledOnce();
+    await user.click(screen.getByRole("button", { name: /Start full tour/ }));
+    expect(onStartTour).toHaveBeenCalledOnce();
   });
 });
 
@@ -34,6 +37,7 @@ describe("GuidedDemo", () => {
         onOpenAudit={onOpenAudit}
         open
         openBlockerCount={1}
+        startAt="overview"
         totalCount={18}
       />,
     );
@@ -68,6 +72,28 @@ describe("GuidedDemo", () => {
     expect(onClose).toHaveBeenCalledOnce();
   });
 
+  it("opens directly on the final mapping decision when requested", async () => {
+    const onNavigate = vi.fn();
+    render(
+      <GuidedDemo
+        approvedCount={17}
+        isReady={false}
+        onClose={() => undefined}
+        onNavigate={onNavigate}
+        onOpenAudit={() => undefined}
+        open
+        openBlockerCount={1}
+        startAt="mapping"
+        totalCount={18}
+      />,
+    );
+
+    await waitFor(() =>
+      expect(screen.getByRole("heading", { name: /Review the one decision left/ })).toHaveFocus(),
+    );
+    expect(onNavigate).toHaveBeenLastCalledWith("mapping", expect.any(Number));
+  });
+
   it("returns keyboard focus to the control that opened the guide", async () => {
     const user = userEvent.setup();
     function GuideHarness(): React.ReactElement {
@@ -83,6 +109,7 @@ describe("GuidedDemo", () => {
             onOpenAudit={() => undefined}
             open={open}
             openBlockerCount={1}
+            startAt="overview"
             totalCount={18}
           />
         </>

@@ -316,6 +316,9 @@ input[type="checkbox"] { accent-color: var(--teal); }
 .text-button { padding: 0; color: var(--teal); background: transparent; border: 0; font-size: 8px; font-weight: 750; text-decoration: underline; text-underline-offset: 2px; }
 .button--tour { min-height: 31px; color: white; background: rgb(255 255 255 / 10%); border-color: rgb(255 255 255 / 28%); }
 .button--tour:hover:not(:disabled) { background: rgb(255 255 255 / 18%); }
+.demo-mission__actions { display: flex; grid-column: 1; gap: 8px; margin-top: 4px; }
+.button--demo-secondary { min-height: 31px; color: white; background: transparent; border-color: rgb(255 255 255 / 34%); }
+.button--demo-secondary:hover:not(:disabled) { background: rgb(255 255 255 / 10%); }
 .button--demo { min-height: 34px; justify-content: space-between; padding-inline: 12px 9px; color: white; background: var(--teal); border-color: var(--teal); font-size: 9px; }
 .button--demo svg { transform: rotate(-90deg); }
 
@@ -567,7 +570,8 @@ tr.is-guided-row > td:first-child { box-shadow: inset 4px 0 #e1a742; }
   .phase-lockup { flex-basis: 138px; min-width: 128px; }
   .button--tour { flex: 1; }
   .demo-mission__lead { grid-template-columns: 1fr; }
-  .demo-mission__lead .button { grid-column: 1; grid-row: auto; margin-top: 6px; }
+  .demo-mission__actions { width: 100%; flex-direction: column; }
+  .demo-mission__actions .button { width: 100%; }
   .demo-mission__story { grid-template-columns: 1fr; }
   .demo-mission__story div { min-height: 0; border-right: 0; border-bottom: 1px solid rgb(255 255 255 / 12%); }
   .demo-mission__story div:last-child { border-bottom: 0; }
