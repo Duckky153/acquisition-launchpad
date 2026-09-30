@@ -11,6 +11,7 @@ interface KpiStripProps {
 
 export function KpiStrip({ accounts, blockers, readiness, sequence, currency }: KpiStripProps): React.ReactElement {
   const mapped = accounts.filter((account) => account.approved_mapping !== null).length;
+  const remaining = accounts.length - mapped;
   const balance = accounts.reduce((sum, account) => sum + (account.debit_cents ?? 0) - (account.credit_cents ?? 0), 0);
   const balanced = readiness.entities.filter((entity) => entity.tie_out.is_balanced).length;
   const openBlocking = blockers.filter((blocker) => blocker.state === "OPEN" && blocker.severity === "BLOCKING").length;
@@ -20,7 +21,7 @@ export function KpiStrip({ accounts, blockers, readiness, sequence, currency }: 
       <article>
         <p>Mappings approved</p>
         <strong>{mapped}<span> / {accounts.length}</span></strong>
-        <small>{accounts.length - mapped === 0 ? "Human review complete" : `${accounts.length - mapped} decisions remain`}</small>
+        <small>{remaining === 0 ? "Human review complete" : remaining === 1 ? "1 decision remains" : `${remaining} decisions remain`}</small>
       </article>
       <article>
         <p>Trial balances</p>

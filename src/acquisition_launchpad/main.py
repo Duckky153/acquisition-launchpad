@@ -18,8 +18,8 @@ def create_app() -> FastAPI:
         title=settings.app_name,
         version="0.1.0",
         description=(
-            "Synthetic-data Phase 1 control plane for multi-entity finance onboarding. "
-            "Independent portfolio project; not affiliated with Entry Inc."
+            "Phase 1 control plane for multi-entity finance onboarding. "
+            "Uses sample data, not a real company."
         ),
     )
     application.add_middleware(

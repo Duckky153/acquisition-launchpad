@@ -299,7 +299,7 @@ export default function App(): React.ReactElement {
             <main className="control-main">
               <div className="scope-heading">
                 <div><p className="eyebrow">Current review scope</p><h1>{selectedEntity?.name ?? "Consolidated acquisition"}</h1><p>{selectedEntity ? `${selectedEntity.legal_name} · ${selectedEntity.source_system}` : `${workspace.package.entities.length} entities · ${workspace.sourceAccounts.length} source accounts · ${readinessLabel(workspace.readiness.status)}`}</p></div>
-                <div className="scope-boundary"><ShieldIcon /><span><strong>Synthetic portfolio proof</strong><small>Independent project · no company affiliation</small></span></div>
+                <div className="scope-boundary"><ShieldIcon /><span><strong>Sample data</strong><small>Not a real company</small></span></div>
               </div>
               <KpiStrip accounts={workspace.sourceAccounts} blockers={workspace.blockers} currency={workspace.package.reporting_currency} readiness={workspace.readiness} sequence={workspace.sequence} />
               <MappingLedger accounts={visibleAccounts} busy={busy} canonicalAccounts={workspace.canonicalAccounts} currency={workspace.package.reporting_currency} guidedFocus={guidedFocus} onCreateMapping={createMapping} onRequestDecision={(mode, mappings) => setDecision({ mode, mappings })} onSelectionChange={setSelectedSourceIds} readiness={workspace.readiness.entities} selectedSourceIds={selectedSourceIds} />
@@ -332,7 +332,7 @@ function EmptyWorkspace({ busy, error, onImport, onRetry }: { busy: boolean; err
       <h1>Bring in a synthetic Phase 1 package</h1>
       <p>Import a schema 1.0 JSON package to validate its entity hierarchy, tie opening balances, review account mappings, and generate a dependency sequence.</p>
       <label className={`button button--primary file-button${busy ? " is-disabled" : ""}`}>Choose synthetic JSON<input accept="application/json,.json" disabled={busy} onChange={(event) => { const file = event.target.files?.[0]; if (file) void onImport(file); }} type="file" /></label>
-      <small>Customer data is not accepted for this portfolio demonstration.</small>
+      <small>Sample data only. Customer data is not accepted.</small>
       {error ? <button className="text-button" onClick={onRetry} type="button">Retry API connection</button> : null}
     </main>
   );

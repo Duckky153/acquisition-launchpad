@@ -42,7 +42,7 @@ test("renders the live Entity Control Center and its evidence surfaces", async (
   await expect(page.getByText("In Progress", { exact: true })).toBeVisible();
   await expect(page.getByText("Data preparation only", { exact: true })).toBeVisible();
   await expect(page.getByText("Synthetic data", { exact: true })).toBeVisible();
-  await expect(page.getByText("Synthetic portfolio proof")).toBeVisible();
+  await expect(page.getByText("Sample data", { exact: true })).toBeVisible();
   await expect(page.getByText("Intercompany eliminations")).toBeVisible();
   await expect(page.getByRole("heading", { name: /acquisition package is ready|one decision turns the package ready/i })).toBeVisible();
   await expect(page.getByText("Problem", { exact: true })).toBeVisible();

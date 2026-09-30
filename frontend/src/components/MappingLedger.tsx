@@ -296,7 +296,7 @@ function MappingDetail({ account, canonicalAccounts, busy, onRequestDecision, on
   const compatible = canonicalAccounts.filter((canonical) => canonical.account_type === account.account_type);
   const [showCreate, setShowCreate] = useState(false);
   const [canonicalId, setCanonicalId] = useState(compatible[0]?.id ?? "");
-  const [actorId, setActorId] = useState("portfolio-reviewer");
+  const [actorId, setActorId] = useState("demo-reviewer");
   const [rationale, setRationale] = useState("");
 
   const submit = (event: FormEvent): void => {

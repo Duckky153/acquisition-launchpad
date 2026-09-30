@@ -15,7 +15,7 @@ interface ResolveBlockerDialogProps {
 }
 
 export function ResolveBlockerDialog({ blocker, busy, onClose, onSubmit }: ResolveBlockerDialogProps): React.ReactElement {
-  const [actorId, setActorId] = useState("portfolio-reviewer");
+  const [actorId, setActorId] = useState("demo-reviewer");
   const [note, setNote] = useState("");
   const submit = (event: FormEvent): void => {
     event.preventDefault();

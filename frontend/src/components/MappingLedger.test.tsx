@@ -86,6 +86,6 @@ describe("MappingLedger", () => {
     await user.selectOptions(screen.getByRole("combobox", { name: "Compatible canonical account" }), "canonical-ar");
     await user.type(screen.getByRole("textbox", { name: "Why should this be considered?" }), "Reviewed the synthetic source classification.");
     await user.click(screen.getByRole("button", { name: "Save candidate" }));
-    expect(onCreateMapping).toHaveBeenCalledWith("source-1", "canonical-ar", "portfolio-reviewer", "Reviewed the synthetic source classification.");
+    expect(onCreateMapping).toHaveBeenCalledWith("source-1", "canonical-ar", "demo-reviewer", "Reviewed the synthetic source classification.");
   });
 });

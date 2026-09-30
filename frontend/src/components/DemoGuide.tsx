@@ -15,7 +15,7 @@ export function DemoMission({ approvedCount, totalCount, isReady, onReviewDecisi
   return (
     <section className={`demo-mission${isReady ? " is-complete" : ""}`} data-demo-anchor="overview" aria-labelledby="demo-mission-heading">
       <div className="demo-mission__lead">
-        <p className="eyebrow">Three-minute recruiter demo</p>
+        <p className="eyebrow">Guided demo</p>
         <h2 id="demo-mission-heading">{isReady ? "The acquisition package is ready" : "One decision turns the package ready"}</h2>
         <p>{isReady ? "The final human mapping is approved, the blocker is cleared, and every launch step is complete." : "Seventeen synthetic mapping decisions are already recorded. Review one final account to see evidence, controls, readiness, sequence, and audit history change together."}</p>
         <div className="demo-mission__actions">
@@ -24,7 +24,7 @@ export function DemoMission({ approvedCount, totalCount, isReady, onReviewDecisi
         </div>
       </div>
       <dl className="demo-mission__story">
-        <div><dt>Problem</dt><dd>Three acquired companies call the same accounts by different names.</dd></div>
+        <div><dt>Problem</dt><dd>A parent company and its two acquired companies call the same accounts by different names.</dd></div>
         <div><dt>User</dt><dd>An implementation specialist and controller preparing finance data.</dd></div>
         <div><dt>Outcome</dt><dd>One standard chart, tied balances, no blockers, and a defensible audit trail.</dd></div>
       </dl>
@@ -78,7 +78,7 @@ function buildSteps(isReady: boolean, openBlockerCount: number): [DemoStep, ...D
       eyebrow: "3 · Human evidence review",
       title: isReady ? "The final mapping is approved" : "Review the one decision left",
       body: "Open HZ-115. The system suggests Accounts Receivable and explains why, but confidence cannot approve it. A person must inspect and sign the decision.",
-      proof: isReady ? "The recorded reviewer, note, target, and row version remain visible." : "Use Review & approve, identify yourself truthfully, and record what you inspected.",
+      proof: isReady ? "The recorded reviewer, note, target, and row version remain visible." : "Use Review & approve, enter your reviewer ID, and record what you inspected.",
     },
     {
       anchor: "blockers",

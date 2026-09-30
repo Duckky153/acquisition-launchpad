@@ -21,7 +21,7 @@ DEMO_EXPECTED_SOURCE_COUNT = 18
 DEMO_SEED_ACTOR = "synthetic-demo-preparer"
 DEMO_SEED_NOTE = (
     "Synthetic fixture history: source name, account type, and canonical target "
-    "were pre-reviewed for the guided portfolio demonstration."
+    "were pre-reviewed for the guided demo."
 )
 
 
