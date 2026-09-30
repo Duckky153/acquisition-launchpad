@@ -32,7 +32,7 @@ source-account row lock and partial unique index prevent concurrent double appro
 
 For demonstration ergonomics, the local seed script replays 17 fictional historical decisions via
 that same explicit approve endpoint and labels them with `synthetic-demo-preparer`. This is seeded
-portfolio history, not an automated application feature or a claim about a real reviewer. It
+demo history, not an automated application feature or a claim about a real reviewer. It
 deliberately leaves HZ-115 suggested so the demonstrator performs the only live decision.
 
 ## Exact readiness gate

@@ -1,8 +1,7 @@
 # Entity Control Center frontend
 
-This is the interactive Phase 1 control surface for Acquisition Launchpad. It is an independent,
-synthetic-data portfolio project and is not affiliated with Entry Inc. or DualEntry. It does not
-use a company logo, proprietary screenshot, customer record, or claimed customer result.
+This is the interactive Phase 1 control surface for Acquisition Launchpad. It uses sample data,
+not a real company, and contains no customer record or customer result.
 
 The frontend deliberately labels the overall product **In Progress**. Working Phase 1 covers
 entity scope, account mapping decisions, exact opening-balance tie-outs, blocker handling,
@@ -26,8 +25,8 @@ For the complete containerized stack, run `make demo-up` from the repository roo
 `http://127.0.0.1:3011`. The container build calls the API through same-origin `/api`; Nginx proxies
 that path over the private Compose network.
 
-There are no demo login credentials. Authentication is explicitly outside this portfolio phase,
-so the UI must stay loopback-only and accept synthetic data only.
+There are no demo login credentials. Authentication is explicitly outside Phase 1, so the UI must
+stay loopback-only and accept synthetic data only.
 
 If the database has no package, the empty state accepts a schema `1.0` synthetic JSON file. It
 does not silently seed or approve data. The repository fixture is
@@ -35,7 +34,7 @@ does not silently seed or approve data. The repository fixture is
 
 ## Working controls
 
-- Always-visible three-minute problem/user/outcome demo card.
+- Always-visible problem/user/outcome demo card with `Review final decision` and `Start full tour`.
 - Six-step guided walkthrough with entity, HZ-115 evidence, blocker, sequence, and audit navigation.
 - Dismiss/restart controls, Left/Right/Escape keyboard support, and a mobile bottom-sheet layout.
 - Package switcher and API refresh.

@@ -1,6 +1,6 @@
 # Planned scope — not implemented
 
-The following modules are intentionally visible as future work so the portfolio remains truthful:
+The following modules are intentionally visible as future work so the project status stays accurate:
 
 1. **Intercompany graph and eliminations** — reciprocal balance matching, counterparty evidence,
    elimination proposals, and human approval.

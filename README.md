@@ -1,38 +1,49 @@
 # Acquisition Launchpad
 
-Acquisition Launchpad is an independent portfolio project for controlling Phase 1 of
-multi-entity finance onboarding. It accepts a versioned **synthetic** acquisition package,
-validates the entity hierarchy, exposes source-to-canonical account suggestions for human review,
-ties opening balances exactly, derives blockers, evaluates data-preparation readiness, generates a
-dependency-ordered sequence, and maintains a hash-chained audit trail.
+Acquisition Launchpad helps a finance implementation specialist or controller get the books of
+newly acquired companies ready to join the parent company's accounting. It maps each company's
+accounts to one standard chart, checks that opening balances tie, sends every account match to a
+person for approval, and keeps a tamper-evident audit trail.
 
-The overall product is truthfully **In Progress**. Its working Phase 1 covers entity intake,
-account mapping decisions, trial-balance tie-outs, blockers, readiness, sequencing, and audit
-evidence. Intercompany eliminations, live integration synchronization, first-close simulation,
-the full migration packet, and production identity controls are planned—not implemented or
-claimed.
-
-This project is not affiliated with Entry Inc. or DualEntry. It contains no customer data,
-company logo, proprietary screenshot, customer claim, or production accounting advice.
+There is no live site. The app runs locally with Docker; see [Run the demo](#run-the-demo).
 
 ![Acquisition Launchpad guided demo with one mapping decision remaining](docs/assets/acquisition-launchpad-guided-demo.png)
 
-## Understand it in three minutes
+- **Status: Phase 1 · In Progress.** Phase 1 works: entity intake, account mapping review,
+  trial-balance tie-outs, blockers, readiness, sequencing, and the audit trail. Later modules
+  (intercompany eliminations, live integrations, first-close simulation, the full migration
+  packet, and production sign-in) are planned and not built.
+- **Sample data, not a real company.** The checked-in package has 3 fictional companies (one
+  parent and the two it acquired), 18 source accounts, 6 standard accounts, and 19 account-match
+  suggestions. Money is stored in integer cents, and debits must equal credits exactly.
+- **The account-match suggestions come pre-written in the sample file**, each with a confidence
+  score and a reason. The tool does not generate them. What it does is control human review:
+  nothing is applied until a person approves it, and confidence never approves anything.
+- **Tests:** 30 backend tests (one needs PostgreSQL), 31 frontend unit tests, and 5 Playwright
+  browser tests that run on desktop and mobile.
 
-The in-product guide tells one concrete story from start to finish:
+Built with AI assistance (Claude Code and Codex).
+
+## The demo story
+
+The in-app guide tells one story from start to finish:
 
 > Horizon acquired two businesses. Their legacy systems call equivalent accounts by different
 > names. An implementation specialist reviews the final proposed mapping, which clears the last
 > evidence-backed blocker, makes the Phase 1 package ready, completes its dependency sequence, and
 > leaves a verifiable audit record.
 
-The always-visible demo card explains the **problem, user, and outcome** before the operator touches
-the ledger. `Start guided demo` then navigates directly to the entity structure, HZ-115 mapping
-evidence, remaining blocker, dependency sequence, and audit ledger. It supports keyboard
-Left/Right navigation, Escape dismissal, mobile layouts, and an explicit restart. Restarting the
-guide does not rewrite evidence; `make demo-reset` restores the database demo state.
+A demo card at the top explains the **problem, user, and outcome** before the operator touches the
+ledger. It has two buttons:
 
-## One-command full-stack demo
+- `Review final decision` opens the guide directly on the HZ-115 mapping decision.
+- `Start full tour` walks through the entity structure, HZ-115 mapping evidence, remaining blocker,
+  dependency sequence, and audit ledger.
+
+The guide supports keyboard Left/Right navigation, Escape to close, mobile layouts, and a restart.
+Restarting the guide does not change any data; `make demo-reset` restores the database demo state.
+
+## Run the demo
 
 Prerequisites for the one-command path:
 
@@ -64,9 +75,9 @@ checks both health endpoints.
 - OpenAPI: `http://127.0.0.1:8011/docs`
 - API readiness: `http://127.0.0.1:8011/v1/health/ready`
 
-There are **no demo credentials** because Phase 1 does not claim production authentication. The UI
-opens directly and clearly states its synthetic/local boundary. Never load customer or private
-finance data into this portfolio build.
+There are **no demo credentials** because Phase 1 does not include production sign-in. The UI
+opens directly and states that it uses sample data and runs locally. Never load customer or private
+finance data into this build.
 
 The named PostgreSQL volume preserves review decisions between launches. The seed uses a stable
 idempotency key: a repeat launch reuses the original package without resetting decisions or
@@ -82,14 +93,14 @@ make demo-down
 [docs/demo-runbook.md](docs/demo-runbook.md) for the exact walkthrough, fresh-state expectations,
 and explicit reset command.
 
-## Synthetic fixture truth
+## Sample data details
 
 The raw `fixtures/horizon_acquisition_v1.json` contains:
 
-- 3 fictional legal entities and a parent-child hierarchy;
+- 3 fictional legal entities: one parent and two child companies;
 - 6 canonical accounts;
 - 18 source accounts and 18 integer-cent opening-balance rows;
-- 19 deterministic mapping suggestions;
+- 19 pre-written mapping suggestions;
 - balanced trial balances for all three entities.
 
 On import, every suggestion starts unapproved. The local demo seed then replays 17 explicitly
@@ -104,12 +115,13 @@ customer approved anything. Confidence never approves a mapping in the applicati
 change still passes through the explicit decision endpoint with a reviewer label, note, optimistic
 version, recalculation, and audit event.
 
-## Demonstrable Phase 1 workflow
+## Walkthrough
 
-1. Click `Start guided demo` and read the problem, operator, and promised Phase 1 outcome.
+1. Read the problem, user, and outcome card, then click `Start full tour`. (`Review final
+   decision` skips straight to step 3.)
 2. Follow the guide to the entity hierarchy and confirm three exact trial-balance tie-outs.
 3. Continue to `HZ-115`, where the source, proposed target, confidence, and rationale are expanded.
-4. Select `Review & approve`; enter a truthful local reviewer label and what you inspected.
+4. Select `Review & approve`; enter a reviewer ID and a note on what you inspected.
 5. Follow the guide to see the last blocker disappear and all 15 dependency steps complete.
 6. Open the audit ledger and inspect the human decision plus recalculated control events.
 7. Refresh the browser to prove the decision persists.
@@ -194,9 +206,9 @@ full-stack browser workflow.
 - Non-root API and frontend containers, loopback-only host ports, same-origin API proxy, CSP, and
   baseline browser security headers.
 
-This is a local portfolio proof, not a production finance system. Production identity and
-authorization, secrets management, encrypted storage, backup/restore, rate limiting, monitoring,
-and live source integrations remain outside Phase 1.
+This is a local demo, not a production finance system. It contains no customer data and gives no
+accounting advice. Production identity and authorization, secrets management, encrypted storage,
+backup/restore, rate limiting, monitoring, and live source integrations remain outside Phase 1.
 
 Further contracts:
 

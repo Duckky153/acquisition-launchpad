@@ -2,9 +2,9 @@
 
 ## Boundary
 
-This walkthrough uses only `fixtures/horizon_acquisition_v1.json`. Every entity, account, amount,
-and mapping rationale is fictional. Acquisition Launchpad is independent and not affiliated with
-Entry Inc. or DualEntry. Do not import real customer, employer, or private finance data.
+This walkthrough uses only `fixtures/horizon_acquisition_v1.json`. It is sample data, not a real
+company: every entity, account, amount, and mapping rationale is fictional. Do not import real
+customer or private finance data.
 
 The product remains **Phase 1 · In Progress**. A successful data-preparation gate does not mean a
 company has been migrated, integrated, eliminated, closed, or made production-ready.
@@ -62,12 +62,12 @@ the audit ledger; the replay-safe seed never silently resets it.
 
 1. Read the top boundary: `Phase 1`, `In Progress`, `Synthetic data`.
 2. Read the visible problem/user/outcome card, confirm `17/18 approved`, and click
-   `Start guided demo`.
+   `Start full tour`. (`Review final decision` opens the guide directly at step 4 below.)
 3. Use `Next` (or Right Arrow) to visit the entity hierarchy. Confirm three entities and three exact
    tie-outs.
 4. Continue to the mapping step. HZ-115 is automatically filtered and its evidence expanded:
    `Trade Receivables → 1100 · Accounts Receivable`, 98% suggestion confidence, asset-to-asset.
-5. Select `Review & approve`. Enter a truthful local reviewer label and exactly what you inspected.
+5. Select `Review & approve`. Enter a reviewer ID and exactly what you inspected.
 6. Confirm the top story changes to `The acquisition package is ready` and `18/18 approved`.
 7. Jump to the blocker step: the source-derived exception is gone. Continue to sequence: all 15
    dependency steps are complete.

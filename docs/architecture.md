@@ -39,7 +39,7 @@ through an accounting decision.
 OpenAPI is generated from strict Pydantic request and response models; unknown input fields are
 rejected. CORS is limited to local frontend origins. The included database credentials are local
 Docker defaults only. Production identity, authorization, secrets management, rate limiting,
-encrypted object storage, and deployment are deliberately outside this portfolio phase and must
+encrypted object storage, and deployment are deliberately outside Phase 1 and must
 be added before any real data is considered.
 
 The local Compose dependency graph is `postgres → migrate → api → seed → frontend`. Migration and
